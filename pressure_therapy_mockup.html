@@ -1,0 +1,247 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .pt-wrap { background: #0a0a0a; color: #f0f0f0; min-height: 100vh; }
+
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 0.5px solid #2a2a2a; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 36px; height: 36px; background: #d85a30; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .logo-icon svg { width: 20px; height: 20px; }
+  .logo-text { font-size: 15px; font-weight: 500; letter-spacing: 0.5px; color: #f0f0f0; }
+  .logo-sub { font-size: 10px; color: #888; letter-spacing: 1.5px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { font-size: 13px; color: #999; text-decoration: none; cursor: pointer; }
+  .nav-links a:hover { color: #f0f0f0; }
+  .nav-cta { background: #d85a30; color: #fff; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; }
+
+  .hero { padding: 80px 32px 60px; max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .hero-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #d85a30; margin-bottom: 12px; }
+  .hero-title { font-size: 38px; font-weight: 500; line-height: 1.2; margin-bottom: 16px; color: #f0f0f0; }
+  .hero-title span { color: #d85a30; }
+  .hero-desc { font-size: 14px; color: #999; line-height: 1.7; margin-bottom: 28px; }
+  .hero-btns { display: flex; gap: 12px; }
+  .btn-primary { background: #d85a30; color: #fff; font-size: 13px; padding: 10px 22px; border-radius: 6px; border: none; cursor: pointer; }
+  .btn-secondary { background: transparent; color: #f0f0f0; font-size: 13px; padding: 10px 22px; border-radius: 6px; border: 0.5px solid #444; cursor: pointer; }
+  .hero-stats { display: flex; gap: 24px; margin-top: 28px; }
+  .stat { }
+  .stat-num { font-size: 22px; font-weight: 500; color: #f0f0f0; }
+  .stat-label { font-size: 11px; color: #666; margin-top: 2px; }
+
+  .hero-card { background: #141414; border: 0.5px solid #2a2a2a; border-radius: 12px; padding: 24px; }
+  .hc-label { font-size: 11px; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .hc-name { font-size: 15px; font-weight: 500; color: #f0f0f0; margin-bottom: 4px; }
+  .hc-role { font-size: 12px; color: #d85a30; margin-bottom: 20px; }
+  .hc-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .hc-pill { background: #1e1e1e; border: 0.5px solid #2a2a2a; border-radius: 20px; padding: 6px 12px; font-size: 12px; color: #ccc; }
+  .hc-pill.active { background: #d85a301a; border-color: #d85a30; color: #d85a30; }
+  .hc-divider { border: none; border-top: 0.5px solid #2a2a2a; margin: 16px 0; }
+  .hc-time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .hc-time { background: #1e1e1e; border: 0.5px solid #2a2a2a; border-radius: 6px; padding: 8px 0; font-size: 12px; color: #ccc; text-align: center; cursor: pointer; }
+  .hc-time.selected { background: #d85a301a; border-color: #d85a30; color: #d85a30; }
+  .hc-time.blocked { background: #111; color: #444; cursor: not-allowed; text-decoration: line-through; }
+  .hc-book { width: 100%; background: #d85a30; color: #fff; font-size: 13px; padding: 10px; border-radius: 6px; border: none; cursor: pointer; }
+
+  .services { padding: 48px 32px; max-width: 900px; margin: 0 auto; }
+  .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #d85a30; margin-bottom: 8px; }
+  .section-title { font-size: 24px; font-weight: 500; color: #f0f0f0; margin-bottom: 28px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc-card { background: #141414; border: 0.5px solid #2a2a2a; border-radius: 12px; padding: 20px; cursor: pointer; transition: border-color 0.2s; }
+  .svc-card:hover { border-color: #d85a30; }
+  .svc-icon { width: 36px; height: 36px; background: #d85a301a; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .svc-name { font-size: 14px; font-weight: 500; color: #f0f0f0; margin-bottom: 4px; }
+  .svc-dur { font-size: 12px; color: #666; margin-bottom: 12px; }
+  .svc-footer { display: flex; justify-content: space-between; align-items: center; }
+  .svc-price { font-size: 15px; font-weight: 500; color: #d85a30; }
+  .svc-deposit { font-size: 11px; color: #666; }
+
+  .booking { padding: 48px 32px; max-width: 900px; margin: 0 auto; }
+  .booking-inner { background: #141414; border: 0.5px solid #2a2a2a; border-radius: 12px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .b-step { margin-bottom: 20px; }
+  .b-step-label { font-size: 11px; color: #666; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .b-input { width: 100%; background: #1e1e1e; border: 0.5px solid #2a2a2a; border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #f0f0f0; outline: none; }
+  .b-input:focus { border-color: #d85a30; }
+  .b-time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .b-time { background: #1e1e1e; border: 0.5px solid #2a2a2a; border-radius: 6px; padding: 8px 0; font-size: 12px; color: #ccc; text-align: center; cursor: pointer; }
+  .b-time.sel { background: #d85a301a; border-color: #d85a30; color: #d85a30; }
+  .b-time.blk { background: #111; color: #444; cursor: not-allowed; }
+  .summary { background: #0f0f0f; border: 0.5px solid #2a2a2a; border-radius: 10px; padding: 20px; }
+  .sum-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; color: #ccc; }
+  .sum-row.total { color: #f0f0f0; font-weight: 500; border-top: 0.5px solid #2a2a2a; padding-top: 10px; margin-top: 4px; }
+  .sum-deposit { font-size: 11px; color: #d85a30; margin-top: 4px; }
+  .payfast-btn { width: 100%; margin-top: 16px; background: #d85a30; color: #fff; font-size: 13px; padding: 12px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; }
+  .wa-note { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: #666; }
+  .wa-dot { width: 8px; height: 8px; background: #25d366; border-radius: 50%; flex-shrink: 0; }
+
+  .footer { border-top: 0.5px solid #1e1e1e; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto; }
+  .footer-left { font-size: 12px; color: #555; }
+  .wa-badge { display: flex; align-items: center; gap: 8px; background: #25d3661a; border: 0.5px solid #25d36640; border-radius: 20px; padding: 6px 14px; font-size: 12px; color: #25d366; cursor: pointer; }
+</style>
+
+<div class="pt-wrap">
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="6" r="3" stroke="#fff" stroke-width="1.5"/>
+          <path d="M5 17c0-3 2-5 5-5s5 2 5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M3 11h3M14 11h3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Pressure Therapy</div>
+        <div class="logo-sub">Physical Therapist · Cape Town</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a>Services</a>
+      <a>About</a>
+      <a>Reviews</a>
+    </div>
+    <button class="nav-cta">Book now</button>
+  </nav>
+
+  <div class="hero">
+    <div>
+      <div class="hero-tag">Cape Town · Woodstock & Claremont</div>
+      <div class="hero-title">Treat injuries.<br>Restore <span>peak</span> performance.</div>
+      <div class="hero-desc">Specialist physical therapy for overworked men and athletes. Over 100+ injuries treated in 2024. Book your free consultation today.</div>
+      <div class="hero-btns">
+        <button class="btn-primary">Book a session</button>
+        <button class="btn-secondary">Free consult via WhatsApp</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Injuries treated</div></div>
+        <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Avg. rating</div></div>
+        <div class="stat"><div class="stat-num">Free</div><div class="stat-label">Consultation</div></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-label">Quick book</div>
+      <div class="hc-name">Choose a service</div>
+      <div class="hc-role">Select treatment type</div>
+      <div class="hc-row">
+        <div class="hc-pill active">Deep tissue</div>
+        <div class="hc-pill">Sports rehab</div>
+        <div class="hc-pill">Assessment</div>
+      </div>
+      <hr class="hc-divider">
+      <div class="hc-name" style="margin-bottom:10px;">Pick a time · Thu 1 May</div>
+      <div class="hc-time-grid">
+        <div class="hc-time">08:00</div>
+        <div class="hc-time blocked">09:00</div>
+        <div class="hc-time selected">10:00</div>
+        <div class="hc-time">11:00</div>
+        <div class="hc-time blocked">12:00</div>
+        <div class="hc-time">14:00</div>
+      </div>
+      <button class="hc-book">Continue to booking →</button>
+    </div>
+  </div>
+
+  <div class="services">
+    <div class="section-label">What we treat</div>
+    <div class="section-title">Services & pricing</div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M2 9h14" stroke="#d85a30" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-name">Deep tissue massage</div>
+        <div class="svc-dur">60 min session</div>
+        <div class="svc-footer">
+          <div>
+            <div class="svc-price">R650</div>
+            <div class="svc-deposit">R150 deposit</div>
+          </div>
+          <button class="btn-primary" style="font-size:12px;padding:6px 14px;">Book</button>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#d85a30" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#d85a30" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="svc-name">Sports rehab</div>
+        <div class="svc-dur">45 min session</div>
+        <div class="svc-footer">
+          <div>
+            <div class="svc-price">R500</div>
+            <div class="svc-deposit">R100 deposit</div>
+          </div>
+          <button class="btn-primary" style="font-size:12px;padding:6px 14px;">Book</button>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="#d85a30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="svc-name">Initial assessment</div>
+        <div class="svc-dur">30 min session</div>
+        <div class="svc-footer">
+          <div>
+            <div class="svc-price">Free</div>
+            <div class="svc-deposit">via WhatsApp</div>
+          </div>
+          <button class="btn-secondary" style="font-size:12px;padding:6px 14px;">DM us</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="booking">
+    <div class="section-label">Secure your spot</div>
+    <div class="section-title">Book a session</div>
+    <div class="booking-inner">
+      <div>
+        <div class="b-step">
+          <div class="b-step-label">Your details</div>
+          <input class="b-input" placeholder="Full name" style="margin-bottom:8px;">
+          <input class="b-input" placeholder="Phone / WhatsApp number" style="margin-bottom:8px;">
+          <input class="b-input" placeholder="Email address">
+        </div>
+        <div class="b-step">
+          <div class="b-step-label">Preferred date</div>
+          <input class="b-input" type="date">
+        </div>
+        <div class="b-step">
+          <div class="b-step-label">Available times</div>
+          <div class="b-time-grid">
+            <div class="b-time">08:00</div>
+            <div class="b-time blk">09:00</div>
+            <div class="b-time sel">10:00</div>
+            <div class="b-time">11:00</div>
+            <div class="b-time blk">13:00</div>
+            <div class="b-time">15:00</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="summary">
+          <div class="b-step-label" style="margin-bottom:16px;">Booking summary</div>
+          <div class="sum-row"><span>Service</span><span>Deep tissue massage</span></div>
+          <div class="sum-row"><span>Duration</span><span>60 min</span></div>
+          <div class="sum-row"><span>Date</span><span>Thu 1 May</span></div>
+          <div class="sum-row"><span>Time</span><span>10:00</span></div>
+          <div class="sum-row"><span>Location</span><span>Woodstock</span></div>
+          <div class="sum-row total"><span>Total</span><span>R650</span></div>
+          <div class="sum-deposit">Deposit due now: R150 via PayFast</div>
+        </div>
+        <button class="payfast-btn">Pay R150 deposit via PayFast</button>
+        <div class="wa-note">
+          <div class="wa-dot"></div>
+          Confirmation & reminder sent via WhatsApp + email
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:0 32px 48px;">
+    <div class="footer">
+      <div class="footer-left">© 2025 Pressure Therapy · Woodstock & Claremont, Cape Town</div>
+      <div class="wa-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </div>
+    </div>
+  </div>
+</div>

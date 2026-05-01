@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Pressure Therapy</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3" stroke="#fff" stroke-width="1.5"/><path d="M5 17c0-3 2-5 5-5s5 2 5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M3 11h3M14 11h3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <div class="logo-text">Pressure Therapy</div>
+        <div class="logo-sub">Admin Panel</div>
+      </div>
+    </a>
+    <div class="nav-links"></div>
+    <button class="nav-cta" id="logout-btn" style="display:none;" onclick="adminLogout()">Log out</button>
+  </nav>
+
+  <!-- Login -->
+  <div class="admin-login" id="admin-login">
+    <h2>Admin Access</h2>
+    <p>Enter the admin password to manage bookings and time slots.</p>
+    <input class="b-input" id="admin-password" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="btn-primary" style="width:100%;margin-top:4px;" onclick="adminLogin()">Log in</button>
+    <p id="login-error" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Invalid password</p>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="admin-wrap" id="admin-dashboard" style="display:none;">
+    <div class="admin-header">
+      <h2>Dashboard</h2>
+      <span style="font-size:12px;color:var(--text-dim);" id="admin-date"></span>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('bookings', this)">Upcoming Bookings</button>
+      <button class="admin-tab" onclick="switchTab('slots', this)">Manage Time Slots</button>
+    </div>
+
+    <!-- Bookings tab -->
+    <div id="tab-bookings">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Deposit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="bookings-tbody">
+          <tr><td colspan="8" class="loading"><div class="spinner"></div>Loading...</td></tr>
+        </tbody>
+      </table>
+      <p id="no-bookings" style="display:none;color:var(--text-dim);font-size:13px;padding:20px 0;">No upcoming bookings.</p>
+    </div>
+
+    <!-- Slots tab -->
+    <div id="tab-slots" style="display:none;">
+      <div class="calendar-controls">
+        <label style="font-size:12px;color:var(--text-dim);">Select date:</label>
+        <input class="b-input" type="date" id="slot-date" style="width:180px;">
+      </div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">Click a slot to block/unblock it. Blocked slots appear in red. Booked slots appear in orange.</p>
+      <div class="slot-grid" id="slot-grid">
+        <div style="color:var(--text-dim);font-size:12px;grid-column:1/-1;">Select a date above</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
